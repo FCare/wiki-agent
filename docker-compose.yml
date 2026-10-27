@@ -1,0 +1,19 @@
+networks:
+  ansible:
+    external: true
+
+services:
+  wiki-agent:
+    build: .
+    container_name: wiki-agent
+    env_file: .env
+    ports:
+      - "8086:8000"
+    networks:
+      - ansible
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
